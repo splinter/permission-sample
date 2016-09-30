@@ -1,0 +1,48 @@
+<%
+  (function(req,res,session){
+    var msg = {};
+    msg.status = 200;
+    var log = new Log();
+
+    if(req.getMethod() !== 'POST') {
+        msg.status = 405;
+        msg.error = "Method not supported";
+        res.status = 405;
+        print(msg);
+        return;
+    }
+
+/*    var content = req.getContent();
+    var contentType =  req.getContentType() || "";
+    if (contentType.indexOf("application/json") < 0 ) {
+      msg.status = 400;
+      msg.error = "Content-Type should be application/json";
+      res.status = 400;
+      print(msg);
+      return;
+    } */
+
+    //var content = req.getContent();//getAllParameters('UTF-8');
+    var content = req.getAllParameters();
+
+    if(!content.hasOwnProperty("permission")) {
+      msg.status = 400;
+      msg.error = "Permission property missing in content";
+      res.status = 400;
+      print(msg);
+      return;
+    }
+
+    var PermissionUtils = require('/modules/permission-utils.js').api;
+    var success = false;
+    var tenantId = -1234;
+
+    success = PermissionUtils.addPermission(content.permission, tenantId);
+
+    msg.data = {};
+    msg.data.success = success;
+    msg.data.message = "Permission successfully created.";
+    print(msg);
+
+  }(request,response,session));
+%>

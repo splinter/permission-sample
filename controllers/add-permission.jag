@@ -1,0 +1,18 @@
+<%
+  print("This is the add permission page");
+%>
+<html>
+  <head>
+  </head>
+  <body>
+    <form id="add-permission-form" action="apis/permissions" method="POST">
+       <label>Permission string:</label>
+       <input name="permission" type="text" >
+       <input type="submit">
+       <p>Enter a permission string starting with /. E.g. /foobar</p>
+    </form>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script type="text/javascript" src="public/js/add-permission.js"></script>
+  </body>
+</html>
